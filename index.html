@@ -17,11 +17,11 @@
     position: relative;
     margin: 100px auto 40px;
 
-    /* ★ ガチャ筐体らしい縦長比率を固定する（アスペクト比 3:4） */
+    /*  ガチャ筐体らしい縦長比率を固定する（アスペクト比 3:4） */
     width: 320px;
     aspect-ratio: 3 / 4;
 
-    /* ★ 背景画像をそのまま綺麗に収める */
+    /*  背景画像をそのまま綺麗に収める */
     background-image: url('https://raw.githubusercontent.com/minmi3983-blip/CafeEgokoroXmasGacha/refs/heads/main/image/xmas.png');
     background-size: contain;
     background-position: center;
@@ -130,7 +130,7 @@
   document.getElementById("gachaButton").addEventListener("click", function () {
     const name = document.getElementById("nameInput").value.trim();
     if (name === "") {
-      alert("名前を入力してください！");
+      alert("ニックネームを入力してください！");
       return;
     }
 
@@ -138,7 +138,7 @@
     const number = Math.floor(Math.random() * 20) + 1; // 1〜20
     const id = generateRandomID(10); // 10桁ランダム英数字
 
-    const resultText = `${safeName} さんの番号は ${number} 番！<br>スクリーンショットを撮って運営に送ってね（ID：${id}）`;
+    const resultText = `${safeName} さんは ${number} 番！<br>スクショを運営に送ってね（ID：${id}）`;
 
     document.getElementById("result").innerHTML = resultText;
 
