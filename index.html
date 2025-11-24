@@ -100,14 +100,13 @@
 
 <input
   type="text"
-  id="nameInput"
-  placeholder="ニックネーム" 
-  name="notName"          <!-- 連絡先入力はさせない -->
-  autocomplete="new-password"  <!-- あくまでハンドルネームを書いてもらう -->
+  id="userHandle"        <!-- "name" の単語を避ける -->
+  placeholder="ニックネーム"
+  name="fieldX"          <!-- フィールド名 -->
+  autocomplete="new-password"
   autocorrect="off"
   autocapitalize="off"
-  inputmode="text"
-  />
+/>
 <br>
 <button id="gachaButton">ガチャを回す！</button>
 
