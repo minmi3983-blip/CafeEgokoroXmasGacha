@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クリスマスガチャ</title>
+
+<style>
+  body {
+    font-family: "Yu Gothic", sans-serif;
+    background: #f3f3f3;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .machine {
+    position: relative;
+    margin: 80px auto 40px;
+    width: 320px;
+    padding: 40px 20px 60px;
+
+    /* ガチャ筐体そのものに画像を貼る */
+    background-image: url('https://raw.githubusercontent.com/minmi3983-blip/CafeEgokoroXmasGacha/refs/heads/main/image/ui.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 20px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.35);
+  }
+
+  /* タイトル画像（ガチャ上部に配置） */
+  .machine-title {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    pointer-events: none;
+  }
+
+  #nameInput {
+    padding: 10px;
+    width: 80%;
+    max-width: 250px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    margin-bottom: 15px;
+  }
+
+  #gachaButton {
+    padding: 12px 24px;
+    font-size: 18px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #b33333;
+  }
+
+  #gachaButton:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b33333;
+  }
+
+  .result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* 簡単な揺れアニメーション */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  .shake {
+    animation: shake 0.4s;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="machine" id="machineBox">
+  <!-- タイトル画像を上に載せる -->
+  <img src="https://raw.githubusercontent.com/minmi3983-blip/CafeEgokoroXmasGacha/refs/heads/main/image/ui.png" 
+       class="machine-title">
+</div>
+
+<input type="text" id="nameInput" placeholder="名前を入力">
+<br>
+<button id="gachaButton">ガチャを回す！</button>
+
+<div class="result" id="result"></div>
+
+<script>
+  // 文字列を安全に HTML エスケープ
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function (c) {
+      return ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[c];
+    });
+  }
+
+  function generateRandomID(length) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let id = "";
+    for (let i = 0; i < length; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+  }
+
+  document.getElementById("gachaButton").addEventListener("click", function () {
+    const name = document.getElementById("nameInput").value.trim();
+    if (name === "") {
+      alert("名前を入力してください！");
+      return;
+    }
+
+    const safeName = escapeHtml(name);  //  XSS対策
+    const number = Math.floor(Math.random() * 20) + 1; // 1〜20
+    const id = generateRandomID(10); // 10桁ランダム英数字
+
+    const resultText = `${safeName} さんの番号は ${number} 番！<br>スクリーンショットを撮って運営に送ってね（ID：${id}）`;
+
+    document.getElementById("result").innerHTML = resultText;
+
+    // ガチャアニメーション（揺れ）
+    const box = document.getElementById("machineBox");
+    box.classList.remove("shake");
+    void box.offsetWidth; // 再適用のための reflow
+    box.classList.add("shake");
+  });
+</script>
+
+</body>
+</html>
