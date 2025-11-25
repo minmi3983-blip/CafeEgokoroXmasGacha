@@ -143,7 +143,7 @@
     }
 
     const safeName = escapeHtml(name);  //  XSS対策
-    const number = Math.floor(Math.random() * 20) + 1; // 1〜20
+    const number = Math.floor(Math.random() * 23) + 1; // 1〜23
     const id = generateRandomID(10); // 10桁ランダム英数字
 
     const resultText = `${safeName} さんは ${number} 番！<br>スクショを運営に送ってね（ID：${id}）`;
